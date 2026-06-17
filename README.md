@@ -128,6 +128,48 @@ Marketing-ROI-Analyzer/
 
 ---
 
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/dakshjain02/Marketing-ROI-Analyzer.git
+```
+
+### Navigate to Project
+
+```bash
+cd Marketing-ROI-Analyzer
+```
+
+### Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Virtual Environment
+
+```bash
+venv\Scripts\activate
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run Application
+
+```bash
+python app.py
+```
+
+---
+
+---
+
 ## 🎯 Future Enhancements
 
 * Drag & Drop Dataset Upload
@@ -143,5 +185,10 @@ Marketing-ROI-Analyzer/
 
 **Daksh Jain**
 
+B.Tech – Artificial Intelligence & Data Science
+
+Python | Machine Learning | Data Analytics | Flask Development
+
 ---
 
+⭐ If you found this project useful, consider giving it a star.
