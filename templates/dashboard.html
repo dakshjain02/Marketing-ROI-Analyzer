@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing ROI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            padding: 30px;
+        }
+
+        .dashboard-wrapper {
+            width: 95%;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .meta-info p {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 12px 20px;
+            border-radius: 10px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            width: 260px;
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+        }
+
+        .value {
+            font-size: 34px;
+            font-weight: bold;
+            color: #22c55e;
+            text-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .chart-container {
+            background: #1e293b;
+            width: 100%;
+            margin: 40px auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+        }
+
+        .chart-container h2 {
+            text-align: center;
+            color: #60a5fa;
+            margin-bottom: 20px;
+        }
+
+        .insights {
+            background: #1e293b;
+            width: 100%;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .insights h2 {
+            color: #60a5fa;
+            margin-bottom: 25px;
+        }
+
+        .insights p {
+            font-size: 22px;
+            margin: 18px 0;
+            color: #e2e8f0;
+        }
+
+        .insights span {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .custom-table th {
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .custom-table td {
+            padding: 14px;
+            text-align: center;
+            color: #e2e8f0;
+        }
+
+        .custom-table tr:nth-child(odd) {
+            background: #1e293b;
+        }
+
+        .custom-table tr:nth-child(even) {
+            background: #243248;
+        }
+
+        .custom-table tr:hover {
+            background: #334155;
+            transition: 0.3s;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        @media(max-width:768px) {
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .meta-info {
+                flex-direction: column;
+            }
+
+            .insights p {
+                font-size: 18px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="dashboard-wrapper">
+
+        <h1>📊 Marketing ROI Dashboard</h1>
+
+        <p class="subtitle">
+            Analyze campaign performance, ROI metrics and business insights.
+        </p>
+
+        <div class="meta-info">
+
+            <p>
+                📂 Dataset:
+                <strong>{{ dataset_name }}</strong>
+            </p>
+
+            <p>
+                📅 Analysis Time:
+                <strong>{{ analysis_time }}</strong>
+            </p>
+
+        </div>
+
+        <div class="quality-container">
+
+            <div class="quality-card">
+                <h2>📋 Initial Data Quality Report</h2>
+
+                <p><strong>Total Rows:</strong> {{ before_report.rows }}</p>
+                <p><strong>Missing Values:</strong> {{ before_report.missing }}</p>
+                <p><strong>Duplicate Rows:</strong> {{ before_report.duplicates }}</p>
+                <p><strong>Outliers Detected:</strong> {{ before_report.outliers }}</p>
+            </div>
+
+            <div class="quality-card">
+                <h2>✅ Clean Data Report</h2>
+
+                <p><strong>Total Rows:</strong> {{ after_report.rows }}</p>
+                <p><strong>Missing Values:</strong> {{ after_report.missing }}</p>
+                <p><strong>Duplicate Rows:</strong> {{ after_report.duplicates }}</p>
+                <p><strong>Outliers Remaining:</strong> {{ after_report.outliers }}</p>
+            </div>
+
+        </div>
+
+        <!-- KPI Cards -->
+
+        <div class="container">
+
+            <div class="card">
+                <h3>💰 Total Revenue</h3>
+                <div class="value">
+                    ₹ {{ kpis.total_revenue }}
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💸 Total Spend</h3>
+                <div class="value">
+                    ₹ {{ kpis.total_spend }}
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>💵 Total Profit</h3>
+                <div class="value">
+                    ₹ {{ kpis.total_profit }}
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📊 Average ROI</h3>
+                <div class="value">
+                    {{ kpis.avg_roi }}%
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🔮 Predicted ROI</h3>
+                <div class="value">
+                    {{ predicted_roi }}%
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Model Accuracy</h3>
+                <div class="value">
+                    {{ accuracy }}%
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚡ Best Model</h3>
+                <div class="value" style="font-size:22px;">
+                    {{ best_model }}
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <a href="/download-report">
+                    <button class="download-btn">
+                        📄 Download PDF Report
+                    </button>
+                </a>
+            </div>
+
+            <div class="chart-container">
+
+                <h2>🤖 Model Comparison</h2>
+
+                <table class="custom-table">
+
+                    <tr>
+                        <th>Model</th>
+                        <th>Accuracy (%)</th>
+                    </tr>
+
+                    {% for model, score in model_scores.items() %}
+
+                    <tr class="{% if model == best_model %}best-model-row{% endif %}">
+                        <td>
+                            {{ model }}
+                            {% if model == best_model %}
+                            🏆
+                            {% endif %}
+                        </td>
+                        <td>{{ score }}%</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- Revenue Chart -->
+
+        <div class="chart-container">
+
+            <p class="chart-desc">
+                Revenue generated by each marketing campaign.
+            </p>
+
+            {{ chart|safe }}
+
+        </div>
+
+        <!-- ROI Chart -->
+
+        <div class="chart-container">
+
+            <p class="chart-desc">
+                Average return on investment across campaigns.
+            </p>
+
+            {{ roi_chart|safe }}
+
+        </div>
+
+        <!-- Pie Chart -->
+
+        <!-- <div class="chart-container">
+            {{ pie_chart|safe }}
+        </div> -->
+
+        <!-- Business Insights -->
+
+        <div class="insights">
+
+            <h2>🧠 Business Intelligence</h2>
+
+            <div class="insight-item">
+                <span>🏆 Best Campaign</span>
+                <strong>{{ insights.best_campaign }}</strong>
+            </div>
+
+            <div class="insight-item">
+                <span>📈 Highest ROI</span>
+                <strong>{{ insights.best_roi }}%</strong>
+            </div>
+
+            <div class="insight-item">
+                <span>💰 Total Profit</span>
+                <strong>₹ {{ insights.profit }}</strong>
+            </div>
+
+            <hr style="margin:20px 0; border-color:#334155;">
+
+            <h2 style="color:#60a5fa;">🤖 AI Recommendations</h2>
+
+            {% for rec in recommendations %}
+            <p>✅ {{ rec }}</p>
+            {% endfor %}
+
+        </div>
+
+        <!-- <div class="chart-container">
+            {{ importance_chart|safe }}
+        </div> -->
+
+        <!-- Campaign Data -->
+
+        <div class="chart-container">
+
+            <h2>📋 Campaign Data</h2>
+
+            {{ table|safe }}
+
+        </div>
+
+        <p class="table-note">
+            Showing first 20 records from cleaned dataset.
+        </p>
+
+    </div>
+
+    <div class="footer">
+        Marketing ROI Analyzer • Built with Flask, Pandas, Plotly & Machine Learning.
+    </div>
+
+</body>
+
+</html>

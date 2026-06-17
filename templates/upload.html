@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing ROI Analyzer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(135deg,
+                    #020617,
+                    #071a46,
+                    #020617);
+
+            color: white;
+        }
+
+        .upload-card {
+
+            width: 550px;
+
+            background: #1e293b;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .upload-box {
+
+            background: #243248;
+
+            border: 2px dashed #38bdf8;
+
+            border-radius: 15px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+        }
+
+        .upload-box p {
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        .file-input-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        input[type="file"] {
+            width: auto;
+            max-width: 150px;
+        }
+
+        .upload-box {
+            background: #243248;
+            border: 2px dashed #38bdf8;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: 0.3s;
+        }
+
+        .upload-box:hover {
+            border-color: #22c55e;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.25);
+        }
+
+        .upload-btn {
+
+            margin-top: 20px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 28px;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+
+            background: #1d4ed8;
+
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="upload-card">
+
+        <div class="logo">📊</div>
+
+        <h1>Marketing ROI Analyzer</h1>
+
+        <p class="subtitle">
+            Upload your marketing dataset and generate
+            AI-powered business insights, ROI predictions,
+            campaign analytics and professional reports.
+        </p>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="upload-box">
+
+                <p>📁 Upload CSV Dataset</p>
+
+                <div class="file-input-wrapper">
+
+                    <input type="file" name="file" accept=".csv" required>
+
+                </div>
+
+            </div>
+
+            <button type="submit" class="upload-btn">
+
+                🚀 Analyze Dataset
+
+            </button>
+
+        </form>
+
+        <p class="footer-text">
+            Supported Format: CSV
+        </p>
+
+    </div>
+
+</body>
+
+</html>
