@@ -141,7 +141,7 @@ Marketing-ROI-Analyzer/
 
 ## 👨‍💻 Author
 
-Daksh Jain
+**Daksh Jain**
 
 ---
 
