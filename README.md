@@ -54,6 +54,8 @@ An AI-powered Marketing ROI Analyzer built with Flask, Machine Learning, and Dat
 * Data Quality Report
 * Business Metrics Overview
 
+---
+
 ## 🛠️ Tech Stack
 
 ### Backend
@@ -105,6 +107,7 @@ An AI-powered Marketing ROI Analyzer built with Flask, Machine Learning, and Dat
 
 ## 📁 Project Structure
 
+```text
 Marketing-ROI-Analyzer/
 │
 ├── app.py
@@ -121,14 +124,9 @@ Marketing-ROI-Analyzer/
 ├── report.pdf
 ├── requirements.txt
 └── README.md
+```
 
 ---
-
-## ⚙️ Installation
-
-### Clone Repository
-
-git clone https://github.com/your-username/Marketing-ROI-Analyzer.git
 
 ## 🎯 Future Enhancements
 
@@ -144,7 +142,6 @@ git clone https://github.com/your-username/Marketing-ROI-Analyzer.git
 ## 👨‍💻 Author
 
 Daksh Jain
-t
 
 ---
 
