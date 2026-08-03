@@ -1,3 +1,6 @@
-flask
+Flask
 pandas
 plotly
+scikit-learn
+reportlab
+gunicorn
